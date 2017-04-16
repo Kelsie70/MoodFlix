@@ -70,3 +70,16 @@ h4{
     -moz-box-shadow: 0px 0px 8px #7bc1f7; 
     -webkit-box-shadow: 0px 0px 8px #7bc1f7; 
 } 
+
+
+
+/*This is the styling for D3 and C3*/
+
+div.bar {
+    display: inline-block;
+    width: 20px;
+    height: 75px;   /* We'll override this later */
+    background-color: teal;
+    margin-right: 2px;
+}
+

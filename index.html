@@ -1,9 +1,22 @@
 <!DOCTYPE html>
-<html lang="">
+<html lang="en">
 
     
     <head>
+        
+        <title>Moodflix</title>
+        
         <link rel="stylesheet" href="style.css">
+        
+        <!--<script src="https://d3js.org/d3.v4.min.js"></script>-->
+      
+        <!-- Load c3.css -->
+        <link href="/path/to/c3.css" rel="stylesheet" type="text/css">
+
+        <!-- Load d3.js and c3.js -->
+        <script type= "text/javascript" src="d3/d3.v3.js"></script>
+        <script src="/path/to/c3-0.4.11/c3.min.js"></script>
+        
     </head>
 
     <body>
@@ -22,7 +35,46 @@
                 <h4>Moodflix will analyze your movie and determine the different moods felt (joy, sadness, anger, disgust, fear) towards the movie.</h4>
             </div>
         </form>
-
+        
+       
+        
+       <script type="text/javascript">
+           
+           
+           var dataset = [ 0, 25, 7, 5, 26, 11, 8, 25, 14, 23, 19,
+                14, 11, 22, 29, 11, 13, 12, 17, 18, 10,
+                24, 18, 25, 9, 3 ];
+           
+           /*
+           d3.select("body").selectAll("p")
+            .data(dataset)
+            .enter()
+            .append("p")
+            .text(function(d) { return d; })
+           .style("color", function(d) {
+            if (d > 15) {   //Threshold of 15
+                return "red";
+            } else {
+                return "black";
+            }
+            });
+           */
+           
+           d3.select("body").selectAll("div")
+            .data(dataset)
+            .enter()
+            .append("div")
+            .attr("class", "bar")
+           .style("height", function(d) {
+            var barHeight = d * 5;  //Scale up by factor of 5
+            return barHeight + "px";
+            });
+           
+        
+        </script>
+         
+        
     </body>
+    
     
 </html>
