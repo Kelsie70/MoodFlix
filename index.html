@@ -21,6 +21,7 @@
 
     <body>
         
+        
         <h1>Moodflix</h1>
         
         <br><br>
@@ -36,30 +37,72 @@
             </div>
         </form>
         
-       
+      
         
        <script type="text/javascript">
            
            
-           var dataset = [ 0, 25, 7, 5, 26, 11, 8, 25, 14, 23, 19,
-                14, 11, 22, 29, 11, 13, 12, 17, 18, 10,
-                24, 18, 25, 9, 3 ];
            
-           /*
-           d3.select("body").selectAll("p")
+           var w = 400;
+           var h = 400;
+           var barPadding = 1;
+           
+           var svg = d3.select("body")
+                    .append("svg")
+                    .attr("width", w)
+                    .attr("height", h);
+           
+                    
+           
+           var dataset = [ 25, 22, 20, 15, 10 ];
+           
+           var colors = ['#0000b4','#0082ca','#0094ff','#0d4bcf','#0066AE'];
+
+           var colorScale = d3.scale.quantize()
+						.domain([0,dataset.length])
+						.range(colors);
+           
+           
+           svg.selectAll("rect")
             .data(dataset)
             .enter()
-            .append("p")
-            .text(function(d) { return d; })
-           .style("color", function(d) {
-            if (d > 15) {   //Threshold of 15
-                return "red";
-            } else {
-                return "black";
-            }
-            });
-           */
+            .append("rect")
+            .attr("y", function(d, i) {
+                return i * (w / dataset.length);
+            })
+            .attr("x", function(d){
+               return 0;
+           })
+            .attr("height", w / dataset.length - barPadding)
+            .attr("width", function(d){
+               return d * 4;
+           })
+            .attr("fill", function(d, i){
+              // return "rgb(0, 0, " + (d * 10) + ")";
+                return colorScale(i);
+           });
            
+           
+           svg.selectAll("text")
+            .data(dataset)
+            .enter()
+            .append("text")
+            .text(function(d){
+               return d;
+            })
+            .attr("y", function(d, i) {
+               return i * (w / dataset.length) + (w / dataset.length - barPadding) / 2;
+            })
+            .attr("x", function(d) {
+                 return (d * 4) - 15;
+            })
+            .attr("font-family", "sans-serif")
+            .attr("font-size", "20px")
+            .attr("fill", "white")
+            .attr("text-anchor", "middle");
+           
+           
+           /*
            d3.select("body").selectAll("div")
             .data(dataset)
             .enter()
@@ -69,11 +112,13 @@
             var barHeight = d * 5;  //Scale up by factor of 5
             return barHeight + "px";
             });
+           */
            
         
         </script>
          
         
+         
     </body>
     
     
