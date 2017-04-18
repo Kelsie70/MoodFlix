@@ -8,14 +8,14 @@
         
         <link rel="stylesheet" href="style.css">
         
-        <!--<script src="https://d3js.org/d3.v4.min.js"></script>-->
+        <script src="https://d3js.org/d3.v4.min.js"></script>
       
         <!-- Load c3.css -->
-        <link href="/path/to/c3.css" rel="stylesheet" type="text/css">
+        <!--<link href="/path/to/c3.css" rel="stylesheet" type="text/css">-->
 
         <!-- Load d3.js and c3.js -->
-        <script type= "text/javascript" src="d3/d3.v3.js"></script>
-        <script src="/path/to/c3-0.4.11/c3.min.js"></script>
+        <!--<script type= "text/javascript" src="d3/d3.v3.js"></script>-->
+        <!--<script src="/path/to/c3-0.4.11/c3.min.js"></script>-->
         
     </head>
 
@@ -58,10 +58,9 @@
            
            var colors = ['#0000b4','#0082ca','#0094ff','#0d4bcf','#0066AE'];
 
-           var colorScale = d3.scale.quantize()
-						.domain([0,dataset.length])
-						.range(colors);
-           
+           //var colorScale = d3.scale.ordinal().range(colors);
+           var colorScale = d3.scaleOrdinal()
+            .range(["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56"]);
            
            svg.selectAll("rect")
             .data(dataset)
@@ -77,10 +76,10 @@
             .attr("width", function(d){
                return d * 4;
            })
-            .attr("fill", function(d, i){
-              // return "rgb(0, 0, " + (d * 10) + ")";
-                return colorScale(i);
-           });
+            //.attr("background-color", function(d, i){
+            //    return colorScale(i);
+           //})
+            .attr("fill", colorScale);
            
            
            svg.selectAll("text")
