@@ -37,6 +37,11 @@ h4{
     font-size: 20px;
 }
 
+footer{
+    text-align: center;
+    clear: both;
+}
+
 #submit{
      font-size: 18px;
      padding: 6px 40px;
