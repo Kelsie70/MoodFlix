@@ -19,7 +19,7 @@
         
         
         <div id="align">
-                <h4>your Moodflix for (movie title)</h4>
+                <h4>your Moodflix for <?php echo $_POST["name"]; ?></h4>
             
                     <div id="icons">
                         <img class="imageOne image" src="pictures/joy.png"/>
@@ -41,7 +41,7 @@
            
            
            var w = 470;
-           var h = 800;
+           var h = 600;
            var barPadding = 20;
            
            var svg = d3.select("#chart")
@@ -51,7 +51,7 @@
            
                     
            
-           var dataset = [ 30, 40, 20, 50, 10];
+           var dataset = [ 100, 40, 20, 50, 10];
            
            //var colors = ['#0000b4','#0082ca','#0094ff','#0d4bcf','#0066AE'];
             var colors = ['#FE4365', '#FC9D9A', '#F9CDAD', '#C8C8A9', '#83AF9B'];
