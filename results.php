@@ -9,6 +9,8 @@
         <link rel="stylesheet" href="style.css">
         
         <script src="https://d3js.org/d3.v4.min.js"></script>
+        
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
       
         
     </head>
@@ -114,6 +116,21 @@
             return barHeight + "px";
             });
            */
+            
+            var url = "https://api.nytimes.com/svc/movies/v2/reviews/search.json";
+            url += '?' + $.param({
+              'api-key': "1898a64074374290983801728b9aaf70",
+                'query': "<?php echo $_POST["name"]; ?>"
+            });
+            $.ajax({
+              url: url,
+              method: 'GET',
+            }).done(function(result) {
+              console.log(result);
+            }).fail(function(err) {
+              throw err;
+            });
+            
            
         
         </script>
