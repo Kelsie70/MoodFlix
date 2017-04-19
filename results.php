@@ -59,7 +59,8 @@
            //var colorScale = d3.scale.ordinal().range(colors);
            var colorScale = d3.scaleOrdinal()
             //.range(["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56"]);
-            .range(['#FE4365', '#FC9D9A', '#F9CDAD', '#C8C8A9', '#83AF9B']);
+            //.range(['#FE4365', '#FC9D9A', '#F9CDAD', '#C8C8A9', '#83AF9B']);
+           .range(['#AB83EF', '#82DAE5', '#9FCB85', '#D8807A', '#D5BA79']);
            
            svg.selectAll("rect")
             .data(dataset)
