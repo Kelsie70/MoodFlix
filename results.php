@@ -70,7 +70,8 @@
             if(!$movieFound){
               exit("<h4>Movie not found!</h4>");
             }
-          echo '<a href="' . $results['results'][$index]['link']['url']. '">Link here</a>';
+            $movieURL = $results['results'][$index]['link']['url'];
+          //echo '<form action="'. $results['results'][$index]['link']['url'].'"><input type="submit" value="Review"/></form>';
             curl_close($curl);
 
             // now call Tone Analyzer
@@ -102,10 +103,10 @@
             }
 
             $query = "INSERT INTO analysis(". $categories[0] .", ". $categories[1] ." , ". $categories[2] ."
-            , ". $categories[3] ." , ". $categories[4] .", moviename)
+            , ". $categories[3] ." , ". $categories[4] .", moviename, url)
                          VALUES
                          ( ". $emotions[$categories[0]] .", ". $emotions[$categories[1]] .", ". $emotions[$categories[2]] .",
-                       ". $emotions[$categories[3]] .", ". $emotions[$categories[4]] .", '". $moviename ."');";
+                       ". $emotions[$categories[3]] .", ". $emotions[$categories[4]] .", '". $moviename ."', '". $movieURL. "');";
 
 
             if(!$resultsSet = $db->query($query)){
@@ -126,111 +127,119 @@
                         <img class="imageFive image" src="pictures/fear.png"/>
                     </div>
                     <div id="chart"></div>
+                    <script type="text/javascript">
+
+
+
+
+                       var w = 470;
+                       var h = 600;
+                       var barPadding = 20;
+
+                       var svg = d3.select("#chart")
+                                .append("svg")
+                                .attr("width", w)
+                                .attr("height", h);
+
+
+
+                       var dataset = [<?php
+                       $query = "SELECT joy, sadness, anger, fear, disgust, url from analysis
+                       where moviename='" . $moviename . "';";
+                       $movieURL="";
+                       if(!$resultsSet = $db->query($query)){
+                            die('There was an error running the query [' . $db->error . ']');
+                       }
+                       while($row = $resultsSet->fetch_assoc()){
+                         echo $row['joy'] . ", " .
+                         $row['sadness'] . ", " .
+                         $row['disgust'] . ", " .
+                         $row['anger'] . ", " .
+                         $row['fear'];
+                         $movieURL = $row['url'];
+                         //echo $movieURL;
+
+                       }?>
+                     ];
+
+                       //var colors = ['#0000b4','#0082ca','#0094ff','#0d4bcf','#0066AE'];
+                        var colors = ['#FE4365', '#FC9D9A', '#F9CDAD', '#C8C8A9', '#83AF9B'];
+
+                       //var colorScale = d3.scale.ordinal().range(colors);
+                       var colorScale = d3.scaleOrdinal()
+                       .range(['#AB83EF', '#82DAE5', '#9FCB85', '#D8807A', '#D5BA79']);
+
+                       svg.selectAll("rect")
+                        .data(dataset)
+                        .enter()
+                        .append("rect")
+                        .attr("y", function(d, i) {
+                            return i * (w / dataset.length);
+                        })
+                        .attr("x", function(d){
+                           return 0;
+                       })
+                        .attr("height", w / dataset.length - barPadding)
+                        .attr("width", function(d){
+                           return d * 4;
+                       })
+                        //.attr("background-color", function(d, i){
+                        //    return colorScale(i);
+                       //})
+                        .attr("fill", colorScale)
+                        .attr("rx", 10);
+
+
+
+                       svg.selectAll("text")
+                        .data(dataset)
+                        .enter()
+                        .append("text")
+                        .text(function(d){
+                           return d + "%";
+                        })
+                        .attr("y", function(d, i) {
+                           return (i * (w / dataset.length) + (w / dataset.length - barPadding) / 2) + 4;
+                        })
+                        .attr("x", function(d) {
+                             return (d * 4) + 35;
+                        })
+                        .attr("font-family", "monospace")
+                        .attr("font-size", "20px")
+                        .attr("fill", "gray")
+                        .attr("text-anchor", "middle");
+
+
+                       /*
+                       d3.select("body").selectAll("div")
+                        .data(dataset)
+                        .enter()
+                        .append("div")
+                        .attr("class", "bar")
+                       .style("height", function(d) {
+                        var barHeight = d * 5;  //Scale up by factor of 5
+                        return barHeight + "px";
+                        });
+                       */
+
+
+                    </script>
+
+                    <form action="<?php echo $movieURL; ?>"><input type="submit" id="submit" value="Review"/></form>
+
+
         </div>
 
 
 
 
 
-        <script type="text/javascript">
 
 
+        <!-- <div id="reviewURL" style="display: inherit"> -->
 
 
-           var w = 470;
-           var h = 600;
-           var barPadding = 20;
-
-           var svg = d3.select("#chart")
-                    .append("svg")
-                    .attr("width", w)
-                    .attr("height", h);
-
-
-
-           var dataset = [<?php
-           $query = "SELECT joy, sadness, anger, fear, disgust from analysis
-           where moviename='" . $moviename . "';";
-           if(!$resultsSet = $db->query($query)){
-                die('There was an error running the query [' . $db->error . ']');
-           }
-           while($row = $resultsSet->fetch_assoc()){
-             echo $row['joy'] . ", " .
-             $row['sadness'] . ", " .
-             $row['disgust'] . ", " .
-             $row['anger'] . ", " .
-             $row['fear'];
-           }?>
-         ];
-
-           //var colors = ['#0000b4','#0082ca','#0094ff','#0d4bcf','#0066AE'];
-            var colors = ['#FE4365', '#FC9D9A', '#F9CDAD', '#C8C8A9', '#83AF9B'];
-
-           //var colorScale = d3.scale.ordinal().range(colors);
-           var colorScale = d3.scaleOrdinal()
-            //.range(["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56"]);
-            //.range(['#FE4365', '#FC9D9A', '#F9CDAD', '#C8C8A9', '#83AF9B']);
-           .range(['#AB83EF', '#82DAE5', '#9FCB85', '#D8807A', '#D5BA79']);
-
-           svg.selectAll("rect")
-            .data(dataset)
-            .enter()
-            .append("rect")
-            .attr("y", function(d, i) {
-                return i * (w / dataset.length);
-            })
-            .attr("x", function(d){
-               return 0;
-           })
-            .attr("height", w / dataset.length - barPadding)
-            .attr("width", function(d){
-               return d * 4;
-           })
-            //.attr("background-color", function(d, i){
-            //    return colorScale(i);
-           //})
-            .attr("fill", colorScale)
-            .attr("rx", 10);
-
-
-
-           svg.selectAll("text")
-            .data(dataset)
-            .enter()
-            .append("text")
-            .text(function(d){
-               return d + "%";
-            })
-            .attr("y", function(d, i) {
-               return (i * (w / dataset.length) + (w / dataset.length - barPadding) / 2) + 4;
-            })
-            .attr("x", function(d) {
-                 return (d * 4) + 35;
-            })
-            .attr("font-family", "monospace")
-            .attr("font-size", "20px")
-            .attr("fill", "gray")
-            .attr("text-anchor", "middle");
-
-
-           /*
-           d3.select("body").selectAll("div")
-            .data(dataset)
-            .enter()
-            .append("div")
-            .attr("class", "bar")
-           .style("height", function(d) {
-            var barHeight = d * 5;  //Scale up by factor of 5
-            return barHeight + "px";
-            });
-           */
-
-
-        </script>
-
-        <div id="reviewURL">
-
-        </div>
+        <!-- </div> -->
     </body>
 
     <footer>
