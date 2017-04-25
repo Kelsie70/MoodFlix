@@ -1,145 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
 
-    
+
     <head>
-        
+
         <title>Moodflix</title>
-        
+
         <link rel="stylesheet" href="style.css">
-        
+
         <script src="https://d3js.org/d3.v4.min.js"></script>
-        
+
         <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
-    
-      
+
+
         <!-- Load c3.css -->
         <!--<link href="/path/to/c3.css" rel="stylesheet" type="text/css">-->
 
         <!-- Load d3.js and c3.js -->
         <!--<script type= "text/javascript" src="d3/d3.v3.js"></script>-->
         <!--<script src="/path/to/c3-0.4.11/c3.min.js"></script>-->
-        
+
     </head>
 
     <body>
 
-        
+
         <h1>Moodflix</h1>
-        
+
         <br><br>
-        
-        <form action="results.php" method="POST"  >
-            
+        <div id="align">
+          <h4 style="text-decoration: underline">
+            About Us
+          </h4>
+          <h4>
+            We are the Jay Fan Club, comprised of Asheton Harrell, Phillip Griggs, Kelsie Belan, and John Little.
+            We had a vision of using textual analysis on a plethora of reviews from various sources in order to determine
+            the overall feeling towards the movie being searched. This can help with better categorizing genres of movies,
+            give more metadata for a movie searching algorithm, and much more. While we could not grab multiple reviews,
+            as there were no APIs that could complete this task, here is a prototype of the idea!
+
+          </h4>
+        </div>
+        <br /><br /><br />
+
+
+
+        <form action="results.php" method="POST">
             <div id="align">
                 <h4>enter movie title</h4>
                 <input id="title" name="name" type="textbox" placeholder="Title">
                 <input id="submit" type="submit" value="Moodify">
                 <br><br>
-                <h4>Moodflix will analyze your movie and determine the different moods felt (joy, sadness, anger, disgust, fear) towards the movie.</h4>
+                <h4>Moodflix will find a review for your movie and determine the different emotions(joy, sadness, anger, disgust, fear) towards the movie.</h4>
             </div>
         </form>
-        
-      
-        
-       <script type="text/javascript">
-           
-           /*
-           
-           var w = 400;
-           var h = 400;
-           var barPadding = 1;
-           
-           var svg = d3.select("body")
-                    .append("svg")
-                    .attr("width", w)
-                    .attr("height", h);
-           
-                    
-           
-           var dataset = [ 25, 22, 20, 15, 10];
-           
-           var colors = ['#0000b4','#0082ca','#0094ff','#0d4bcf','#0066AE'];
 
-           //var colorScale = d3.scale.ordinal().range(colors);
-           var colorScale = d3.scaleOrdinal()
-            .range(["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56"]);
-           
-           svg.selectAll("rect")
-            .data(dataset)
-            .enter()
-            .append("rect")
-            .attr("y", function(d, i) {
-                return i * (w / dataset.length);
-            })
-            .attr("x", function(d){
-               return 0;
-           })
-            .attr("height", w / dataset.length - barPadding)
-            .attr("width", function(d){
-               return d * 4;
-           })
-            //.attr("background-color", function(d, i){
-            //    return colorScale(i);
-           //})
-            .attr("fill", colorScale);
-           
-           
-           svg.selectAll("text")
-            .data(dataset)
-            .enter()
-            .append("text")
-            .text(function(d){
-               return d;
-            })
-            .attr("y", function(d, i) {
-               return i * (w / dataset.length) + (w / dataset.length - barPadding) / 2;
-            })
-            .attr("x", function(d) {
-                 return (d * 4) - 15;
-            })
-            .attr("font-family", "sans-serif")
-            .attr("font-size", "20px")
-            .attr("fill", "white")
-            .attr("text-anchor", "middle");
-           */
-           
-           /*
-           d3.select("body").selectAll("div")
-            .data(dataset)
-            .enter()
-            .append("div")
-            .attr("class", "bar")
-           .style("height", function(d) {
-            var barHeight = d * 5;  //Scale up by factor of 5
-            return barHeight + "px";
-            });
-           */
-           
-     
-        /*
-            var url = "https://api.nytimes.com/svc/movies/v2/reviews/search.json";
-            url += '?' + $.param({
-              'api-key': "1898a64074374290983801728b9aaf70",
-                'query': "toy story"
-            });
-            $.ajax({
-              url: url,
-              method: 'GET',
-            }).done(function(result) {
-              console.log(result);
-            }).fail(function(err) {
-              throw err;
-            });
-            
-           */
-           
-        
+
+
+
+
+       <script type="text/javascript">
+
         </script>
-         
-        
-         
+
+
+
     </body>
-    
-    
+
+
 </html>
